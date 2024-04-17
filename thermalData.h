@@ -60,6 +60,11 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+  /* Changes from Qualcomm Innovation Center are provided under the following license:
+
+Copyright (c) 2023 Qualcomm Innovation Center, Inc. All rights reserved.
+SPDX-License-Identifier: BSD-3-Clause-Clear */
+
 #ifndef THERMAL_THERMAL_DATA_H__
 #define THERMAL_THERMAL_DATA_H__
 
@@ -67,32 +72,26 @@
 #include <string>
 #include <mutex>
 #include <cmath>
-
-#include <android/hardware/thermal/2.0/IThermal.h>
+#include <aidl/android/hardware/thermal/BnThermal.h>
 
 #define UNKNOWN_TEMPERATURE (NAN)
 
+namespace aidl{
 namespace android {
 namespace hardware {
 namespace thermal {
-namespace V2_0 {
-namespace implementation {
 
-using ::android::hardware::hidl_vec;
-using ::android::hardware::thermal::V1_0::CpuUsage;
-using CoolingDevice_1_0 = ::android::hardware::thermal::V1_0::CoolingDevice;
-using Temperature_1_0 = ::android::hardware::thermal::V1_0::Temperature;
-using TemperatureType_1_0 = ::android::hardware::thermal::V1_0::TemperatureType;
-using ::android::hardware::thermal::V1_0::ThermalStatus;
-using ::android::hardware::thermal::V1_0::ThermalStatusCode;
+using CoolingDevice = ::aidl::android::hardware::thermal::CoolingDevice;
+using Temperature = ::aidl::android::hardware::thermal::Temperature;
+using TemperatureType = ::aidl::android::hardware::thermal::TemperatureType;
 
-using cdevType = ::android::hardware::thermal::V2_0::CoolingType;
-using CoolingDevice = ::android::hardware::thermal::V2_0::CoolingDevice;
-using Temperature = ::android::hardware::thermal::V2_0::Temperature;
-using TemperatureType = ::android::hardware::thermal::V2_0::TemperatureType;
+using cdevType = ::aidl::android::hardware::thermal::CoolingType;
+using CoolingDevice = ::aidl::android::hardware::thermal::CoolingDevice;
+using Temperature = ::aidl::android::hardware::thermal::Temperature;
+using TemperatureType = ::aidl::android::hardware::thermal::TemperatureType;
 using TemperatureThreshold =
-	::android::hardware::thermal::V2_0::TemperatureThreshold;
-using ::android::hardware::thermal::V2_0::ThrottlingSeverity;
+	::aidl::android::hardware::thermal::TemperatureThreshold;
+using ::aidl::android::hardware::thermal::ThrottlingSeverity;
 
 	struct target_therm_cfg {
 		TemperatureType type;
@@ -100,7 +99,6 @@ using ::android::hardware::thermal::V2_0::ThrottlingSeverity;
 		std::string label;
 		int throt_thresh;
 		int shutdwn_thresh;
-		int vr_thresh;
 		bool positive_thresh_ramp;
 		ThrottlingSeverity throt_severity = ThrottlingSeverity::SEVERE;
 	};
@@ -121,10 +119,9 @@ using ::android::hardware::thermal::V2_0::ThrottlingSeverity;
 		CoolingDevice c;
 	};
 
-}  // namespace implementation
-}  // namespace V2_0
 }  // namespace thermal
 }  // namespace hardware
 }  // namespace android
+}  // namespace aidl
 
 #endif  // THERMAL_THERMAL_DATA_H__
